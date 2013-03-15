@@ -51,23 +51,24 @@ namespace InterdimentionalReacharound
                     break;
             }
 
+            Vector2 newVelocity = Velocity;
             Vector2 newPosition = Position;
-
             switch (newState)
             {
                 case PlayerState.Standing:
-                    
+                    newVelocity = Vector2.Zero;
                     break;
                 case PlayerState.Running:
-                    newPosition = Position + (new Vector2(CheckMovementVelocity(gamePadState).X,0) * Speed);
+                    newVelocity = new Vector2(CheckMovementVelocity(gamePadState).X,0) * Speed;
+                    newPosition = Position + newVelocity;
                     newPosition = OutOfBounds(newPosition);
                     break;
             }
 
-
+            Velocity = newVelocity;
             Position = newPosition;
             _state = newState;
-            spriteManager.Update(gameTime, _state);
+            spriteManager.Update(gameTime, _state, Velocity);
         }
 
         public static bool CheckIsRunning(GamePadState gamePadState)

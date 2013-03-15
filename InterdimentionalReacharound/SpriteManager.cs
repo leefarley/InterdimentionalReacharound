@@ -7,6 +7,11 @@ using System.Text;
 
 namespace InterdimentionalReacharound
 {
+    enum Direction
+    {
+        Left = 0,
+        Right = 1
+    }
     public class SpriteManager
     {
         public Texture2D SpriteSheet{ get; set; }
@@ -15,6 +20,7 @@ namespace InterdimentionalReacharound
         float timeLastFrame;
         float timeBetweenFrame;
         PlayerState state;
+        Direction direction;
 
         public SpriteManager()
         {
@@ -24,9 +30,14 @@ namespace InterdimentionalReacharound
             sheetSize = 3;
         }
 
-        public void Update(GameTime gameTime, PlayerState newState)
+        public void Update(GameTime gameTime, PlayerState newState, Vector2 velocity)
         {
             timeLastFrame += (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f;
+
+            if (velocity.X > 0)
+                direction = Direction.Right;
+            else if (velocity.X < 0)
+                direction = Direction.Left;
 
             if (newState != state)
                 state = newState;
@@ -49,7 +60,7 @@ namespace InterdimentionalReacharound
         public void Draw(SpriteBatch spriteBatch, Vector2 Position)
         {
             var spriteX = currentFrame * 32;
-            Rectangle playerFrame = new Rectangle(spriteX, 32, 32, 32);
+            Rectangle playerFrame = new Rectangle(spriteX, (int)direction * 32, 32, 32);
             Rectangle destFrame = new Rectangle((int)Position.X, (int)Position.Y, 32, 32);
             spriteBatch.Draw(SpriteSheet, destFrame, playerFrame, Color.White);
         }
