@@ -14,6 +14,7 @@ namespace InterdimentionalReacharound
         int sheetSize;
         float timeLastFrame;
         float timeBetweenFrame;
+        PlayerState state;
 
         public SpriteManager()
         {
@@ -23,13 +24,25 @@ namespace InterdimentionalReacharound
             sheetSize = 3;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, PlayerState newState)
         {
             timeLastFrame += (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f;
+
+            if (newState != state)
+                state = newState;
+
             if (timeLastFrame >= timeBetweenFrame)
             {
                 timeLastFrame = 0f;
-                currentFrame = ++currentFrame % sheetSize;
+                switch(state)
+                {
+                    case PlayerState.Standing:
+                        currentFrame = 1;
+                        break;
+                    case PlayerState.Running: 
+                        currentFrame = ++currentFrame % sheetSize;
+                        break;
+                }
             }
         }
 

@@ -10,53 +10,79 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace InterdimentionalReacharound
 {
+    public enum PlayerState
+    {
+        Standing,
+        Falling,
+        Jumping,
+        Running
+    }
+
     public class Player : Actor
     {
         public PlayerIndex _playerIndex;
+        PlayerState _state;
+
         public Player(Vector2 position, PlayerIndex playerIndex, Rectangle bounds) : base(position, bounds)
         {
+            _state = PlayerState.Standing;
             _playerIndex = playerIndex;
         }
 
-        public void LoadContent(Texture2D texture)
+        public override void LoadContent(Texture2D texture)
         {
             base.LoadContent(texture);
         }
 
         public override void Update(GameTime gameTime)
         {
-            var newVelocity = CalculateMovement();
+            var gamePadState = GamePad.GetState(PlayerIndex.One);
+            PlayerState newState = _state;
 
-            var newPosition = Position + (newVelocity * Speed);
+            switch (newState)
+            {
+                case PlayerState.Standing:
+                    if (CheckIsRunning(gamePadState))
+                        newState = PlayerState.Running;
+                    break;
+                case PlayerState.Running:
+                    if (!CheckIsRunning(gamePadState))
+                        newState = PlayerState.Standing;
+                    break;
+            }
 
-            newPosition = calculateBounds(newPosition);
+            Vector2 newPosition = Position;
+
+            switch (newState)
+            {
+                case PlayerState.Standing:
+                    
+                    break;
+                case PlayerState.Running:
+                    newPosition = Position + (new Vector2(CheckMovementVelocity(gamePadState).X,0) * Speed);
+                    newPosition = OutOfBounds(newPosition);
+                    break;
+            }
+
 
             Position = newPosition;
-
-            spriteManager.Update(gameTime);
-            
+            _state = newState;
+            spriteManager.Update(gameTime, _state);
         }
 
-        public static Vector2 CalculateMovement()
+        public static bool CheckIsRunning(GamePadState gamePadState)
         {
-            var gamePadState = GamePad.GetState(PlayerIndex.One);
-
-            var newVelocity = Vector2.Zero;
-
-                if (gamePadState.ThumbSticks.Left.X != 0)
-                {
-                    newVelocity.X = gamePadState.ThumbSticks.Left.X;
-                }
-
-                if (gamePadState.ThumbSticks.Left.Y != 0)
-                {
-                    newVelocity.Y = -gamePadState.ThumbSticks.Left.Y;
-                }
-
-                return newVelocity;
+            if (gamePadState.ThumbSticks.Left.X != 0)
+            {
+                return true;
+            }
+            return false;
         }
-
-        public Vector2 calculateBounds(Vector2 newPosition)
+        public Vector2 CheckMovementVelocity(GamePadState gamePadState)
+        {
+            return gamePadState.ThumbSticks.Left;
+        }
+        public Vector2 OutOfBounds(Vector2 newPosition)
         {
 
             if (newPosition.X < Bounds.Left)
@@ -71,6 +97,7 @@ namespace InterdimentionalReacharound
 
             return newPosition;
         }
+
 
         public void Draw(SpriteBatch spriteBatch, Camera camera)
         {

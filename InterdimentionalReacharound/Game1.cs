@@ -13,7 +13,6 @@ namespace InterdimentionalReacharound
         GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
 
-
         Player PlayerOne, PlayerTwo;
         Viewport defaultView, playerOneView, playerTwoView;
         Camera CameraOne, CameraTwo;
