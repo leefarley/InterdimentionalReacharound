@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace InterdimentionalReacharound
 {
@@ -13,10 +14,11 @@ namespace InterdimentionalReacharound
         GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
 
+
         Player PlayerOne, PlayerTwo;
         Viewport defaultView, playerOneView, playerTwoView;
         Camera CameraOne, CameraTwo;
-        Layer layer;
+        IList<Layer> layers;
         bool xPressed = false;
 
         public Game1()
@@ -34,8 +36,15 @@ namespace InterdimentionalReacharound
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            layer = new Layer();
-            layer.LoadContent(Content);
+            layers = new List<Layer>();
+            layers.Add(new BackgroundLayer());
+            layers.Add(new GroundLayer());
+            
+            foreach (Layer layer in layers)
+            {
+                layer.LoadContent(Content);
+            }
+            
             CameraOne = CameraTwo = new Camera(new Rectangle(0, 0, 6000, 750));
 
             defaultView = playerOneView = playerTwoView = GraphicsDevice.Viewport;
@@ -124,7 +133,10 @@ namespace InterdimentionalReacharound
         {
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
-            layer.Draw(_spriteBatch, camera);
+            foreach (Layer layer in layers)
+	        {
+		        layer.Draw(_spriteBatch, camera);
+	        }
             player.Draw(_spriteBatch, camera);
             
             _spriteBatch.End();

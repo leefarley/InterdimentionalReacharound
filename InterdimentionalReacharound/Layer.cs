@@ -9,34 +9,21 @@ using System.Threading.Tasks;
 
 namespace InterdimentionalReacharound
 {
-    public class Layer
+    public abstract class Layer
     {
-        int[,] map;
-        Point mapSize;
-        Texture2D tileSheet;
-        int tileSize;
+        protected int[,] map;
+        protected Point mapSize;
+        protected Texture2D tileSheet;
+        protected int tileSize;
+        protected Point tileLocation;
+
         public Layer()
         {
             mapSize = new Point(400, 50);
             map = new int[mapSize.X, mapSize.Y];
-            tileSize = 16;
         }
 
-        public void LoadContent(ContentManager contentManager)
-        {
-            tileSheet = contentManager.Load<Texture2D>("tiles2");
-
-            for (int x = 0; x < mapSize.X; x++)
-            {
-                for (int y = 0; y < mapSize.Y; y++)
-                {
-                    if (y > 15)
-                        map[x, y] = 1;
-                    else
-                        map[x, y] = 0;
-                }
-            }
-        }
+        public abstract void LoadContent(ContentManager contentManager);
 
         public void Update(GameTime gameTime)
         {
@@ -62,7 +49,7 @@ namespace InterdimentionalReacharound
                     int displayX = XStartTile + x;
                     int displayY = YStartTile + y;
                     if (map[displayX, displayY] > 0)
-                        spritebatch.Draw(tileSheet, new Rectangle((x * 16) - XOffset, (y * 16) - YOffset, 16, 16), new Rectangle(0, 0, 16, 16), Color.White);
+                        spritebatch.Draw(tileSheet, new Rectangle((x * tileSize) - XOffset, (y * tileSize) - YOffset, tileSize, tileSize), new Rectangle(tileLocation.X, tileLocation.Y, tileSize, tileSize), Color.White);
                 }
             }
         }

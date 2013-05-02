@@ -7,11 +7,6 @@ using System.Text;
 
 namespace InterdimentionalReacharound
 {
-    enum Direction
-    {
-        Left = 0,
-        Right = 1
-    }
     public class SpriteManager
     {
         public Texture2D SpriteSheet{ get; set; }
@@ -19,8 +14,6 @@ namespace InterdimentionalReacharound
         int sheetSize;
         float timeLastFrame;
         float timeBetweenFrame;
-        PlayerState state;
-        Direction direction;
 
         public SpriteManager()
         {
@@ -30,29 +23,15 @@ namespace InterdimentionalReacharound
             sheetSize = 3;
         }
 
-        public void Update(GameTime gameTime, PlayerState newState, Vector2 velocity)
+        public void Update(GameTime gameTime, SpriteState spriteState)
         {
-            timeLastFrame += (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f;
-
-            if (velocity.X > 0)
-                direction = Direction.Right;
-            else if (velocity.X < 0)
-                direction = Direction.Left;
-
-            if (newState != state)
-                state = newState;
-
-            if (timeLastFrame >= timeBetweenFrame)
+            if (spriteState == SpriteState.Running)
             {
-                timeLastFrame = 0f;
-                switch(state)
+                timeLastFrame += (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f;
+                if (timeLastFrame >= timeBetweenFrame)
                 {
-                    case PlayerState.Standing:
-                        currentFrame = 1;
-                        break;
-                    case PlayerState.Running: 
-                        currentFrame = ++currentFrame % sheetSize;
-                        break;
+                    timeLastFrame = 0f;
+                    currentFrame = ++currentFrame % sheetSize;
                 }
             }
         }
@@ -60,7 +39,7 @@ namespace InterdimentionalReacharound
         public void Draw(SpriteBatch spriteBatch, Vector2 Position)
         {
             var spriteX = currentFrame * 32;
-            Rectangle playerFrame = new Rectangle(spriteX, (int)direction * 32, 32, 32);
+            Rectangle playerFrame = new Rectangle(spriteX, 32, 32, 32);
             Rectangle destFrame = new Rectangle((int)Position.X, (int)Position.Y, 32, 32);
             spriteBatch.Draw(SpriteSheet, destFrame, playerFrame, Color.White);
         }
