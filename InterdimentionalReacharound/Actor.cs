@@ -17,6 +17,7 @@ namespace InterdimentionalReacharound
         protected SpriteState spriteState;
         protected Direction direction;
         protected float Speed;
+        protected bool IsJumping;
 
         public SpriteManager spriteManager;
 
@@ -27,6 +28,7 @@ namespace InterdimentionalReacharound
             Speed = 5.0f;
             groundLayer = layer;
             spriteState = SpriteState.Standing;
+            IsJumping = false;
         }
 
         public override void LoadContent(Texture2D texture)

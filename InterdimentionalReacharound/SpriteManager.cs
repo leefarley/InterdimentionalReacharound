@@ -30,12 +30,17 @@ namespace InterdimentionalReacharound
         {
             if (spriteState == SpriteState.Running)
             {
-                timeLastFrame += (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f;
-                if (timeLastFrame >= timeBetweenFrame)
-                {
-                    timeLastFrame = 0f;
-                    currentFrame.X = ++currentFrame.X % sheetSize;
-                }
+                UpdateFrame(gameTime);
+            }
+        }
+
+        private void UpdateFrame(GameTime gameTime)
+        {
+            timeLastFrame += (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f;
+            if (timeLastFrame >= timeBetweenFrame)
+            {
+                timeLastFrame = 0f;
+                currentFrame.X = ++currentFrame.X % sheetSize;
             }
         }
 

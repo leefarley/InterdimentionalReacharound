@@ -14,7 +14,8 @@ namespace InterdimentionalReacharound
     {
         Standing,
         Running,
-        Falling
+        Falling,
+        Jumping
     }
     public enum Direction
     {
@@ -32,13 +33,24 @@ namespace InterdimentionalReacharound
 
         public override void Update(GameTime gameTime)
         {
-            var newVelocity = CalculateMovement(Velocity);
+            var gamePadState = GamePad.GetState(PlayerIndex.One);
+
+            var newVelocity = Velocity;
+            var newState = spriteState;
+
+            newVelocity.X = gamePadState.ThumbSticks.Left.X;
+
+            if (IsJumping == false && gamePadState.Buttons.A == ButtonState.Pressed)
+            {
+                newVelocity.Y = -5;
+                IsJumping = true;
+                newState = SpriteState.Jumping;
+            }
 
             var newPosition = Position + (newVelocity * Speed);
             newPosition = calculateBounds(newPosition);
 
-            var newState = spriteState;
-            switch (spriteState)
+            switch (newState)
             {
                 case SpriteState.Standing:
                     {
@@ -66,13 +78,26 @@ namespace InterdimentionalReacharound
                     {
                         if (IsGroundSolid(newPosition))
                         {
-
+                            newVelocity.Y = 0;
                             newState = SpriteState.Standing;
                         }
-                        else
+                        else if (newVelocity.Y < 10)
                         {
-                            if (newVelocity.Y < 10)
-                                newVelocity.Y += 2;
+                            newVelocity.Y += 0.5f;
+                        }
+                        break;
+                    }
+                case SpriteState.Jumping:
+                    {
+                        if (IsGroundSolid(newPosition))
+                        {
+                            newVelocity.Y = 0;
+                            newState = SpriteState.Standing;
+                            IsJumping = false;
+                        }
+                        else if (newVelocity.Y < 10)
+                        {
+                            newVelocity.Y += 0.5f;
                         }
                         break;
                     }
@@ -87,6 +112,7 @@ namespace InterdimentionalReacharound
             newPosition = calculateBounds(newPosition);
 
             spriteState = newState;
+            Velocity = newVelocity;
             Position = newPosition;
 
             spriteManager.Update(gameTime, spriteState);
@@ -101,20 +127,6 @@ namespace InterdimentionalReacharound
             if (groundLayer.IsLocationSolid(worldLeftFoot) && groundLayer.IsLocationSolid(worldRightFoot))
                 return true;
             return false;
-        }
-
-        private static Vector2 CalculateMovement(Vector2 currentVelocity)
-        {
-            var gamePadState = GamePad.GetState(PlayerIndex.One);
-
-            var newVelocity = currentVelocity;
-
-                if (gamePadState.ThumbSticks.Left.X != 0)
-                {
-                    newVelocity.X = gamePadState.ThumbSticks.Left.X;
-                }
-
-                return newVelocity;
         }
 
         private Vector2 calculateBounds(Vector2 newPosition)
