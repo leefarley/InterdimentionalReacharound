@@ -14,7 +14,7 @@ namespace InterdimentionalReacharound
         GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
 
-
+        
         Player PlayerOne, PlayerTwo;
         Viewport defaultView, playerOneView, playerTwoView;
         Camera CameraOne, CameraTwo;
@@ -52,8 +52,8 @@ namespace InterdimentionalReacharound
             playerOneView.Height = playerTwoView.Height = defaultView.Height / 2;
             playerTwoView.Y = defaultView.Height / 2;
 
-            PlayerOne = new Player(Vector2.Zero, PlayerIndex.One, new Rectangle(0, 0, 6000, 750));
-            PlayerTwo = new Player(Vector2.Zero, PlayerIndex.Two, new Rectangle(0, 0, 6000, 750));
+            PlayerOne = new Player(Vector2.Zero, PlayerIndex.One, new Rectangle(0, 0, 6000, 750), layers[1]);
+            PlayerTwo = new Player(Vector2.Zero, PlayerIndex.Two, new Rectangle(0, 0, 6000, 750), layers[1]);
             
             base.Initialize();
         }

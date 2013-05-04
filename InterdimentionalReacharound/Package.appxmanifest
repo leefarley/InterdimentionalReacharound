@@ -1,39 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-
-  <Identity Name="89be41b4-1f14-4dd2-8078-7c6a4d314ea9"
-            Publisher="CN=Lee"
-            Version="1.0.0.0" />
-
+  <Identity Name="89be41b4-1f14-4dd2-8078-7c6a4d314ea9" Publisher="CN=Lee" Version="1.0.0.0" />
   <Properties>
     <DisplayName>TestGameOne</DisplayName>
     <PublisherDisplayName>Lee</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
-
   <Prerequisites>
     <OSMinVersion>6.2.1</OSMinVersion>
     <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
   </Prerequisites>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-        Executable="$targetnametoken$.exe"
-        EntryPoint="TestGameOne.App">
-        <VisualElements
-            DisplayName="TestGameOne"
-            Logo="Assets\Logo.png"
-            SmallLogo="Assets\SmallLogo.png"
-            Description="TestGameOne"
-            ForegroundText="light"
-            BackgroundColor="#464646">
-            <DefaultTile ShowName="allLogos" />
-            <SplashScreen Image="Assets\SplashScreen.png" />
-        </VisualElements>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="InterdimesionalReacharound.App">
+      <VisualElements DisplayName="Interdimesional Reacharound" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Interdimesional Reacharound" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" />
+        <SplashScreen Image="Assets\SplashScreen.png" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+        </InitialRotationPreference>
+      </VisualElements>
     </Application>
   </Applications>
   <Capabilities>

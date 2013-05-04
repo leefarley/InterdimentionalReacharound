@@ -13,9 +13,6 @@ namespace InterdimentionalReacharound
     {
         public Vector2 Position { get; set; }
         public Rectangle CameraBounds { get; set; }
-        //Matrix viewMatrix;
-        //float scale = 1.0f;
-        //float rotation = 0.0f;
 
         public Camera(Rectangle cameraBounds)
         {

@@ -10,17 +10,20 @@ namespace InterdimentionalReacharound
     public class SpriteManager
     {
         public Texture2D SpriteSheet{ get; set; }
-        int currentFrame;
+        Point currentFrame;
         int sheetSize;
         float timeLastFrame;
         float timeBetweenFrame;
+        Point spriteSize;
+        int currentDirection;
 
         public SpriteManager()
         {
-            currentFrame = 0;
+            currentFrame = Point.Zero;
             timeLastFrame = 0f;
             timeBetweenFrame = 0.1f;
             sheetSize = 3;
+            spriteSize = new Point(32, 32);
         }
 
         public void Update(GameTime gameTime, SpriteState spriteState)
@@ -31,17 +34,36 @@ namespace InterdimentionalReacharound
                 if (timeLastFrame >= timeBetweenFrame)
                 {
                     timeLastFrame = 0f;
-                    currentFrame = ++currentFrame % sheetSize;
+                    currentFrame.X = ++currentFrame.X % sheetSize;
                 }
             }
         }
 
+        public void ChangeSpriteDirection(Direction direction)
+        {
+            if (direction == Direction.Left)
+                currentDirection = 0;
+            else
+                currentDirection = 1;
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 Position)
         {
-            var spriteX = currentFrame * 32;
-            Rectangle playerFrame = new Rectangle(spriteX, 32, 32, 32);
-            Rectangle destFrame = new Rectangle((int)Position.X, (int)Position.Y, 32, 32);
+            var spriteX = currentFrame.X * spriteSize.X;
+            var spriteY = currentDirection * spriteSize.Y;
+            Rectangle playerFrame = new Rectangle(spriteX, spriteY, spriteSize.X, spriteSize.Y);
+            Rectangle destFrame = new Rectangle((int)Position.X, (int)Position.Y, spriteSize.Y, spriteSize.Y);
             spriteBatch.Draw(SpriteSheet, destFrame, playerFrame, Color.White);
+        }
+
+        public Point LeftFoot(Vector2 position)
+        {
+            return new Point((int)(position.X + 5), (int)(position.Y + spriteSize.Y));
+        }
+
+        public Point RightFoot(Vector2 position)
+        {
+            return new Point((int)position.X + (spriteSize.X - 5), (int)(position.Y + spriteSize.Y));
         }
     }
 }

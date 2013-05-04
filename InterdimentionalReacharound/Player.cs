@@ -13,63 +13,111 @@ namespace InterdimentionalReacharound
     public enum SpriteState
     {
         Standing,
-        Running
+        Running,
+        Falling
+    }
+    public enum Direction
+    {
+        Left,
+        Right
     }
     public class Player : Actor
     {
         public PlayerIndex _playerIndex;
-        public SpriteState _spriteState{ get; set; }
-        public Player(Vector2 position, PlayerIndex playerIndex, Rectangle bounds) : base(position, bounds)
+        
+        public Player(Vector2 position, PlayerIndex playerIndex, Rectangle bounds, Layer layer) : base(position, bounds, layer)
         {
             _playerIndex = playerIndex;
-            _spriteState = SpriteState.Standing;
-        }
-
-        public void LoadContent(Texture2D texture)
-        {
-            base.LoadContent(texture);
         }
 
         public override void Update(GameTime gameTime)
         {
-            var newVelocity = CalculateMovement();
+            var newVelocity = CalculateMovement(Velocity);
 
             var newPosition = Position + (newVelocity * Speed);
-
             newPosition = calculateBounds(newPosition);
 
+            var newState = spriteState;
+            switch (spriteState)
+            {
+                case SpriteState.Standing:
+                    {
+                        if (newVelocity.X < 0 || newVelocity.X > 0)
+                            newState = SpriteState.Running;
+                        if (!IsGroundSolid(newPosition))
+                        {
+                            newState = SpriteState.Falling;
+                            newVelocity.Y = 2;
+                        }
+                        break;
+                    }
+                case SpriteState.Running:
+                    {
+                        if (newVelocity.X == 0)
+                            newState = SpriteState.Standing;
+                        if (!IsGroundSolid(newPosition))
+                        {
+                            newState = SpriteState.Falling;
+                            newVelocity.Y = 2;
+                        }
+                        break;
+                    }
+                case SpriteState.Falling:
+                    {
+                        if (IsGroundSolid(newPosition))
+                        {
+
+                            newState = SpriteState.Standing;
+                        }
+                        else
+                        {
+                            if (newVelocity.Y < 10)
+                                newVelocity.Y += 2;
+                        }
+                        break;
+                    }
+            }
+
+            if (newVelocity.X > 0)
+                spriteManager.ChangeSpriteDirection(Direction.Right);
+            else if (newVelocity.X < 0)
+                spriteManager.ChangeSpriteDirection(Direction.Left);
+
+            newPosition = Position + (newVelocity * Speed);
+            newPosition = calculateBounds(newPosition);
+
+            spriteState = newState;
             Position = newPosition;
 
-            if (newVelocity.X < 0 || newVelocity.X > 0)
-                _spriteState = SpriteState.Running;
-            else
-                _spriteState = SpriteState.Standing;
-
-
-            spriteManager.Update(gameTime, _spriteState);
+            spriteManager.Update(gameTime, spriteState);
             
         }
 
-        public static Vector2 CalculateMovement()
+        private bool IsGroundSolid(Vector2 newPosition)
+        {
+            Point worldLeftFoot  = spriteManager.LeftFoot(newPosition);
+            Point worldRightFoot = spriteManager.RightFoot(newPosition);
+
+            if (groundLayer.IsLocationSolid(worldLeftFoot) && groundLayer.IsLocationSolid(worldRightFoot))
+                return true;
+            return false;
+        }
+
+        private static Vector2 CalculateMovement(Vector2 currentVelocity)
         {
             var gamePadState = GamePad.GetState(PlayerIndex.One);
 
-            var newVelocity = Vector2.Zero;
+            var newVelocity = currentVelocity;
 
                 if (gamePadState.ThumbSticks.Left.X != 0)
                 {
                     newVelocity.X = gamePadState.ThumbSticks.Left.X;
                 }
 
-                if (gamePadState.ThumbSticks.Left.Y != 0)
-                {
-                    newVelocity.Y = -gamePadState.ThumbSticks.Left.Y;
-                }
-
                 return newVelocity;
         }
 
-        public Vector2 calculateBounds(Vector2 newPosition)
+        private Vector2 calculateBounds(Vector2 newPosition)
         {
 
             if (newPosition.X < Bounds.Left)

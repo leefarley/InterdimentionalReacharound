@@ -53,5 +53,22 @@ namespace InterdimentionalReacharound
                 }
             }
         }
+
+        public int GetTileAtLocation(Point location)
+        {
+            var x = location.X / tileSize;
+            var y = location.Y / tileSize;
+            return map[x, y];
+        }
+
+        public bool IsLocationSolid(Point location)
+        {
+            int tile = GetTileAtLocation(location);
+            if (tile == 1)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
