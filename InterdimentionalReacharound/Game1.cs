@@ -49,16 +49,20 @@ namespace InterdimentionalReacharound
             {
                 layer.LoadContent(Content);
             }
-            
-            CameraOne = CameraTwo = new Camera(new Rectangle(0, 0, 6000, 750));
 
-            defaultView = playerOneView = playerTwoView = GraphicsDevice.Viewport;
+            CameraOne = new Camera(new Rectangle(0, 0, 6000, 560));
+            CameraTwo = new Camera(new Rectangle(0, 0, 6000, 560));
 
-            playerOneView.Height = playerTwoView.Height = defaultView.Height / 2;
+            defaultView = GraphicsDevice.Viewport;
+            playerOneView = GraphicsDevice.Viewport;
+            playerTwoView = GraphicsDevice.Viewport;
+
+            playerOneView.Height = defaultView.Height / 2;
+            playerTwoView.Height = defaultView.Height / 2;
             playerTwoView.Y = defaultView.Height / 2;
 
-            PlayerOne = new Player(Vector2.Zero, new Rectangle(0, 0, 6000, 750), layers.Last(), new Controller(PlayerIndex.One));
-            PlayerTwo = new Player(Vector2.Zero, new Rectangle(0, 0, 6000, 750), layers.Last(), new KeyboardControl(PlayerIndex.Two));
+            PlayerOne = new Player(Vector2.Zero, new Rectangle(0, 0, 6000, 560), layers.Last(), new Controller(PlayerIndex.One));
+            PlayerTwo = new Player(Vector2.Zero, new Rectangle(0, 0, 6000, 560), layers.Last(), new KeyboardControl(PlayerIndex.Two));
             
             base.Initialize();
         }
@@ -131,7 +135,7 @@ namespace InterdimentionalReacharound
             GraphicsDevice.Viewport = playerTwoView;
             DrawScene(PlayerTwo, CameraTwo, gameTime);
 
-            GraphicsDevice.Viewport = defaultView;
+            
             _spriteBatch.Begin();
             _spriteBatch.End();
 

@@ -48,8 +48,8 @@ namespace InterdimentionalReacharound
             {
                 for (int y = 0; y < tilesHigh; y++)
                 {
-                    int displayX = XStartTile + x;
-                    int displayY = YStartTile + y;
+                    int displayX = Math.Min(XStartTile + x, 399);
+                    int displayY = Math.Min(YStartTile + y, 35);
                     if (Map[displayX, displayY] > 0)
                         spritebatch.Draw(TileSheet, new Rectangle((x * TileSize) - XOffset, (y * TileSize) - YOffset, TileSize, TileSize), new Rectangle(TileLocation.X, TileLocation.Y, TileSize, TileSize), Color.White);
                 }
