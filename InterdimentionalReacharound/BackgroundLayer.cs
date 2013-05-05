@@ -26,7 +26,7 @@ namespace InterdimentionalReacharound
             {
                 for (int y = 0; y < MapSize.Y; y++)
                 {
-                    if (y > 22)
+                    if (y > 37)
                         Map[x, y] = 1;
                     else
                         Map[x, y] = 0;

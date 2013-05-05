@@ -132,8 +132,11 @@
     <Compile Include="BackgroundLayer.cs" />
     <Compile Include="BackLayer.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="Control\Controller.cs" />
+    <Compile Include="Control\KeyboardControl.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GroundLayer.cs" />
+    <Compile Include="Control\IControl.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

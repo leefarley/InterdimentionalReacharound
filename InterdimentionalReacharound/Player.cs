@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using InterdimentionalReacharound.Control;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,23 +24,23 @@ namespace InterdimentionalReacharound
     }
     public class Player : Actor
     {
-        public PlayerIndex _playerIndex;
+        private IControl _control;
         
-        public Player(Vector2 position, PlayerIndex playerIndex, Rectangle bounds, Layer layer) : base(position, bounds, layer)
+        public Player(Vector2 position, Rectangle bounds, Layer layer, IControl control) : base(position, bounds, layer)
         {
-            _playerIndex = playerIndex;
+            _control = control;
         }
 
         public override void Update(GameTime gameTime)
         {
-            var gamePadState = GamePad.GetState(PlayerIndex.One);
+            _control.UpdateContolState();
 
             var newVelocity = Velocity;
             var newState = spriteState;
 
-            newVelocity.X = gamePadState.ThumbSticks.Left.X;
+            newVelocity.X = _control.GetVelocty();
 
-            if (IsJumping == false && gamePadState.Buttons.A == ButtonState.Pressed)
+            if (IsJumping == false && _control.IsJumpPressed())
             {
                 newVelocity.Y = -5;
                 IsJumping = true;
