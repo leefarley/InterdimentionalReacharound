@@ -130,6 +130,7 @@
   <ItemGroup>
     <Compile Include="Actor.cs" />
     <Compile Include="BackgroundLayer.cs" />
+    <Compile Include="BackLayer.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GroundLayer.cs" />
@@ -147,6 +148,9 @@
     <Content Include="Content\malefighter.xnb" />
     <Content Include="Content\malerogue.xnb" />
     <Content Include="Content\tiles2.xnb" />
+    <Content Include="Content\bgLayer1.xnb" />
+    <Content Include="Content\bgLayer2.xnb" />
+    <Content Include="Content\mainbackground.xnb" />
     <None Include="TestGameOne_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

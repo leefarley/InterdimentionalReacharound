@@ -17,7 +17,7 @@ namespace InterdimentionalReacharound
         protected int tileSize;
         protected Point tileLocation;
 
-        public Layer()
+        protected Layer()
         {
             mapSize = new Point(400, 50);
             map = new int[mapSize.X, mapSize.Y];
@@ -25,11 +25,11 @@ namespace InterdimentionalReacharound
 
         public abstract void LoadContent(ContentManager contentManager);
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
         }
 
-        public void Draw(SpriteBatch spritebatch, Camera camera)
+        public virtual void Draw(SpriteBatch spritebatch, Camera camera)
         {
             var position = camera.Position;
 

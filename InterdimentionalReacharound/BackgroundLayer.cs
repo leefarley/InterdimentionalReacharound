@@ -24,7 +24,10 @@ namespace InterdimentionalReacharound
             {
                 for (int y = 0; y < mapSize.Y; y++)
                 {
-                    map[x, y] = 1;
+                    if (y > 15)
+                        map[x, y] = 1;
+                    else
+                        map[x, y] = 0;
                 }
             }
         }
