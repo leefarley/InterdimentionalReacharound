@@ -11,41 +11,38 @@ namespace InterdimentionalReacharound
 {
     public class BackLayer : Layer
     {
-        private Texture2D _mainImage;
-        private Texture2D _bgLayer1;
-        private Texture2D _bgLayer2;
-        private float _speed;
+        private Texture2D _background;
         private float _location;
+        private readonly float _speed;
 
+
+        public BackLayer(float speed, string contentString) : base(contentString)
+        {
+            _speed = speed;
+        }
         public override void LoadContent(ContentManager contentManager)
         {
-            _mainImage = contentManager.Load<Texture2D>("mainbackground");
-            _bgLayer1 = contentManager.Load<Texture2D>("bgLayer1");
-            _bgLayer2 = contentManager.Load<Texture2D>("bgLayer2");
-            tileSize = _mainImage.Width;
-            _speed = 0.2f;
+            _background = contentManager.Load<Texture2D>(ContentString);
+            TileSize = _background.Width;
             _location = 0;
         }
 
         public override void Update(GameTime gameTime)
         {
-            
+            _location = (_location + _speed) % TileSize;
         }
 
         public override void Draw(SpriteBatch spritebatch, Camera camera)
         {
             var position = camera.Position;
 
-            _location = (_location + _speed) % tileSize;
 
-            var XOffset = (int)(_location + position.X) % tileSize;
+            var offset = (int)(_location + position.X) % TileSize;
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
-                var destination = new Vector2((i * tileSize) - XOffset, 0);
-                spritebatch.Draw(_mainImage, destination, Color.White);
-                spritebatch.Draw(_bgLayer1, destination, Color.White);
-                spritebatch.Draw(_bgLayer2, destination, Color.White);
+                var destination = new Vector2((i * TileSize) - offset, 0);
+                spritebatch.Draw(_background, destination, Color.White);
             }
         }
     }

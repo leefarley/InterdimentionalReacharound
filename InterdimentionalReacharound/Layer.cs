@@ -11,16 +11,18 @@ namespace InterdimentionalReacharound
 {
     public abstract class Layer
     {
-        protected int[,] map;
-        protected Point mapSize;
-        protected Texture2D tileSheet;
-        protected int tileSize;
-        protected Point tileLocation;
+        protected int[,] Map;
+        protected Point MapSize;
+        protected Texture2D TileSheet;
+        protected int TileSize;
+        protected Point TileLocation;
+        protected string ContentString;
 
-        protected Layer()
+        protected Layer(string contentString)
         {
-            mapSize = new Point(400, 50);
-            map = new int[mapSize.X, mapSize.Y];
+            ContentString = contentString;
+            MapSize = new Point(400, 50);
+            Map = new int[MapSize.X, MapSize.Y];
         }
 
         public abstract void LoadContent(ContentManager contentManager);
@@ -33,14 +35,14 @@ namespace InterdimentionalReacharound
         {
             var position = camera.Position;
 
-            var tilesWide = (spritebatch.GraphicsDevice.Viewport.Width / tileSize) + 3;
-            var tilesHigh = (spritebatch.GraphicsDevice.Viewport.Height / tileSize) + 3;
+            var tilesWide = (spritebatch.GraphicsDevice.Viewport.Width / TileSize) + 3;
+            var tilesHigh = (spritebatch.GraphicsDevice.Viewport.Height / TileSize) + 3;
 
-            var XStartTile = (int)position.X / tileSize;
-            var YStartTile = (int)position.Y / tileSize;
+            var XStartTile = (int)position.X / TileSize;
+            var YStartTile = (int)position.Y / TileSize;
 
-            var XOffset = (int)position.X % tileSize;
-            var YOffset = (int)position.Y % tileSize;
+            var XOffset = (int)position.X % TileSize;
+            var YOffset = (int)position.Y % TileSize;
 
             for (int x = 0; x < tilesWide; x++)
             {
@@ -48,17 +50,17 @@ namespace InterdimentionalReacharound
                 {
                     int displayX = XStartTile + x;
                     int displayY = YStartTile + y;
-                    if (map[displayX, displayY] > 0)
-                        spritebatch.Draw(tileSheet, new Rectangle((x * tileSize) - XOffset, (y * tileSize) - YOffset, tileSize, tileSize), new Rectangle(tileLocation.X, tileLocation.Y, tileSize, tileSize), Color.White);
+                    if (Map[displayX, displayY] > 0)
+                        spritebatch.Draw(TileSheet, new Rectangle((x * TileSize) - XOffset, (y * TileSize) - YOffset, TileSize, TileSize), new Rectangle(TileLocation.X, TileLocation.Y, TileSize, TileSize), Color.White);
                 }
             }
         }
 
         public int GetTileAtLocation(Point location)
         {
-            var x = location.X / tileSize;
-            var y = location.Y / tileSize;
-            return map[x, y];
+            var x = location.X / TileSize;
+            var y = location.Y / TileSize;
+            return Map[x, y];
         }
 
         public bool IsLocationSolid(Point location)

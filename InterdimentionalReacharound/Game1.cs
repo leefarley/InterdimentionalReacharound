@@ -1,4 +1,5 @@
 ﻿
+using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
@@ -37,9 +38,11 @@ namespace InterdimentionalReacharound
         {
             // TODO: Add your initialization logic here
             layers = new List<Layer>();
-            layers.Add(new BackLayer());
-            layers.Add(new BackgroundLayer());
-            layers.Add(new GroundLayer());
+            layers.Add(new BackLayer(0.2f, "mainbackground"));
+            layers.Add(new BackLayer(0.4f, "bgLayer1"));
+            layers.Add(new BackLayer(0.6f, "bgLayer2"));
+            layers.Add(new BackgroundLayer("tiles2"));
+            layers.Add(new GroundLayer("tiles2"));
             
             foreach (Layer layer in layers)
             {
@@ -53,8 +56,8 @@ namespace InterdimentionalReacharound
             playerOneView.Height = playerTwoView.Height = defaultView.Height / 2;
             playerTwoView.Y = defaultView.Height / 2;
 
-            PlayerOne = new Player(Vector2.Zero, PlayerIndex.One, new Rectangle(0, 0, 6000, 750), layers[2]);
-            PlayerTwo = new Player(Vector2.Zero, PlayerIndex.Two, new Rectangle(0, 0, 6000, 750), layers[2]);
+            PlayerOne = new Player(Vector2.Zero, PlayerIndex.One, new Rectangle(0, 0, 6000, 750), layers.Last());
+            PlayerTwo = new Player(Vector2.Zero, PlayerIndex.Two, new Rectangle(0, 0, 6000, 750), layers.Last());
             
             base.Initialize();
         }
@@ -102,6 +105,10 @@ namespace InterdimentionalReacharound
                 xPressed = false;
             }
             // TODO: Add your update logic here
+            foreach (Layer layer in layers)
+            {
+                layer.Update(gameTime);
+            }
             PlayerOne.Update(gameTime);
             PlayerTwo.Update(gameTime);
             CameraOne.Update(PlayerOne.Position, playerOneView);
