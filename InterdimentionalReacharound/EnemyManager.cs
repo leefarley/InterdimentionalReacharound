@@ -39,7 +39,7 @@ namespace InterdimentionalReacharound
 
         public void Draw(SpriteBatch spriteBatch, Camera camera)
         {
-            Rectangle view = new Rectangle((int)camera.Position.X, (int)camera.Position.Y, camera.CameraBounds.Width, camera.CameraBounds.Height);
+            Rectangle view = new Rectangle((int)camera.Position.X - 32, (int)camera.Position.Y - 32, camera.CameraBounds.Width, camera.CameraBounds.Height);
             foreach (var enemy in _enemies)
             {
                 if (view.Contains((int) enemy.Position.X, (int) enemy.Position.Y))
