@@ -24,11 +24,15 @@ namespace InterdimentionalReacharound
         Camera CameraOne, CameraTwo;
         IList<Layer> layers;
         bool xPressed = false;
+        float timeLastFrame;
+        readonly float timeBetweenFrame;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            timeLastFrame = 0f;
+            timeBetweenFrame = 0.05f;
         }
 
         /// <summary>
@@ -118,18 +122,23 @@ namespace InterdimentionalReacharound
                 PlayerOne = temp;
                 xPressed = false;
             }
-            // TODO: Add your update logic here
-            foreach (Layer layer in layers)
-            {
-                layer.Update(gameTime);
-            }
-            PlayerOne.Update(gameTime);
-            PlayerTwo.Update(gameTime);
-            playerOneEnemies.Update(gameTime);
-            playerTwoEnemies.Update(gameTime);
-            CameraOne.Update(PlayerOne.Position, playerOneView);
-            CameraTwo.Update(PlayerTwo.Position, playerTwoView);
-            base.Update(gameTime);
+            
+            //timeLastFrame += gameTime.ElapsedGameTime.Milliseconds / 1000.0f;
+            //if (timeLastFrame >= timeBetweenFrame)
+            //{
+            //    timeLastFrame = 0f;
+                foreach (Layer layer in layers)
+                {
+                    layer.Update(gameTime);
+                }
+                PlayerOne.Update(gameTime);
+                PlayerTwo.Update(gameTime);
+                playerOneEnemies.Update(gameTime);
+                playerTwoEnemies.Update(gameTime);
+                CameraOne.Update(PlayerOne.Position, playerOneView);
+                CameraTwo.Update(PlayerTwo.Position, playerTwoView);
+                base.Update(gameTime);
+            //}
         }
 
         /// <summary>
@@ -162,9 +171,10 @@ namespace InterdimentionalReacharound
 	        {
 		        layer.Draw(_spriteBatch, camera);
 	        }
+
             player.Draw(_spriteBatch, camera);
-            enemyManager.Draw(_spriteBatch);
-            
+            enemyManager.Draw(_spriteBatch, camera);
+
             _spriteBatch.End();
         }
     }

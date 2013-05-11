@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace InterdimentionalReacharound
 {
@@ -12,16 +8,12 @@ namespace InterdimentionalReacharound
         public Texture2D SpriteSheet{ get; set; }
         Point currentFrame;
         int sheetSize;
-        float timeLastFrame;
-        float timeBetweenFrame;
         Point spriteSize;
         int currentDirection;
 
         public SpriteManager()
         {
             currentFrame = Point.Zero;
-            timeLastFrame = 0f;
-            timeBetweenFrame = 0.1f;
             sheetSize = 3;
             spriteSize = new Point(32, 32);
         }
@@ -36,12 +28,7 @@ namespace InterdimentionalReacharound
 
         private void UpdateFrame(GameTime gameTime)
         {
-            timeLastFrame += (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f;
-            if (timeLastFrame >= timeBetweenFrame)
-            {
-                timeLastFrame = 0f;
-                currentFrame.X = ++currentFrame.X % sheetSize;
-            }
+             currentFrame.X = ++currentFrame.X % sheetSize;
         }
 
         public void ChangeSpriteDirection(Direction direction)

@@ -30,7 +30,7 @@ namespace InterdimentionalReacharound
             }
 
             var newPosition = Position + (newVelocity * Speed);
-            newPosition = calculateBounds(newPosition);
+            newPosition = CalculateBounds(newPosition);
 
             switch (newState)
             {
@@ -41,7 +41,7 @@ namespace InterdimentionalReacharound
                         if (!IsGroundSolid(newPosition))
                         {
                             newState = SpriteState.Falling;
-                            newVelocity.Y = 2;
+                            newVelocity.Y = 1;
                         }
                         break;
                     }
@@ -52,7 +52,7 @@ namespace InterdimentionalReacharound
                         if (!IsGroundSolid(newPosition))
                         {
                             newState = SpriteState.Falling;
-                            newVelocity.Y = 2;
+                            newVelocity.Y = 1;
                         }
                         break;
                     }
@@ -91,7 +91,7 @@ namespace InterdimentionalReacharound
                 spriteManager.ChangeSpriteDirection(Direction.Left);
 
             newPosition = Position + (newVelocity * Speed);
-            newPosition = calculateBounds(newPosition);
+            newPosition = CalculateBounds(newPosition);
 
             spriteState = newState;
             Velocity = newVelocity;
@@ -99,32 +99,6 @@ namespace InterdimentionalReacharound
 
             spriteManager.Update(gameTime, spriteState);
             
-        }
-
-        private bool IsGroundSolid(Vector2 newPosition)
-        {
-            Point worldLeftFoot  = spriteManager.LeftFoot(newPosition);
-            Point worldRightFoot = spriteManager.RightFoot(newPosition);
-
-            if (groundLayer.IsLocationSolid(worldLeftFoot) && groundLayer.IsLocationSolid(worldRightFoot))
-                return true;
-            return false;
-        }
-
-        private Vector2 calculateBounds(Vector2 newPosition)
-        {
-
-            if (newPosition.X < Bounds.Left)
-                newPosition.X = Bounds.Left;
-            else if((newPosition.X + 32) > Bounds.Right)
-                newPosition.X = Bounds.Right - 32;
-
-            if (newPosition.Y < Bounds.Top)
-                newPosition.Y = Bounds.Top;
-            else if ((newPosition.Y + 32) > Bounds.Bottom)
-                newPosition.Y = Bounds.Bottom - 32;
-
-            return newPosition;
         }
 
         public void Draw(SpriteBatch spriteBatch, Camera camera)

@@ -6,13 +6,13 @@ namespace InterdimentionalReacharound
 {
     public class EnemyManager
     {
-        private readonly List<Enemy> _enemies;
+        private readonly List<Gumba> _enemies;
         private readonly Layer _layer;
         private readonly Rectangle _bounds;
         private Texture2D _enemyTexture;
         public EnemyManager(Layer layer, Rectangle bounds)
         {
-            _enemies = new List<Enemy>();
+            _enemies = new List<Gumba>();
             _layer = layer;
             _bounds = bounds;
         }
@@ -37,11 +37,13 @@ namespace InterdimentionalReacharound
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Camera camera)
         {
+            Rectangle view = new Rectangle((int)camera.Position.X, (int)camera.Position.Y, camera.CameraBounds.Width, camera.CameraBounds.Height);
             foreach (var enemy in _enemies)
             {
-                enemy.Draw(spriteBatch);
+                if (view.Contains((int) enemy.Position.X, (int) enemy.Position.Y))
+                    enemy.Draw(spriteBatch, camera.Position);
             }
         }
     }
