@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -35,7 +30,6 @@ namespace InterdimentionalReacharound
         public override void Draw(SpriteBatch spritebatch, Camera camera)
         {
             var position = camera.Position;
-
 
             var offset = (int)(_location + position.X) % TileSize;
 

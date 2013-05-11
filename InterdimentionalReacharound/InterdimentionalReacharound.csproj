@@ -134,26 +134,71 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Control\Controller.cs" />
     <Compile Include="Control\KeyboardControl.cs" />
+    <Compile Include="Direction.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GroundLayer.cs" />
     <Compile Include="Control\IControl.cs" />
+    <Compile Include="Gumba.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpriteManager.cs" />
+    <Compile Include="SpriteState.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <Content Include="Content\malefighter.xnb" />
-    <Content Include="Content\malerogue.xnb" />
-    <Content Include="Content\tiles2.xnb" />
-    <Content Include="Content\bgLayer1.xnb" />
-    <Content Include="Content\bgLayer2.xnb" />
-    <Content Include="Content\mainbackground.xnb" />
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\Environment\bgLayer1.xnb">
+      <Link>Content\Textures\Environment\bgLayer1.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\Environment\bgLayer2.xnb">
+      <Link>Content\Textures\Environment\bgLayer2.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\Environment\mainbackground.xnb">
+      <Link>Content\Textures\Environment\mainbackground.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\SpriteSheets\Gumba.xnb">
+      <Link>Content\Textures\SpriteSheets\Gumba.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\SpriteSheets\Gumba2.xnb">
+      <Link>Content\Textures\SpriteSheets\Gumba2.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\Environment\tiles2.xnb">
+      <Link>Content\Textures\Environment\tiles2.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\SpriteSheets\Mine.xnb">
+      <Link>Content\Textures\SpriteSheets\Mine.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\SpriteSheets\PlayerFour.xnb">
+      <Link>Content\Textures\SpriteSheets\PlayerFour.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\SpriteSheets\PlayerOne.xnb">
+      <Link>Content\Textures\SpriteSheets\PlayerOne.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\SpriteSheets\PlayerThree.xnb">
+      <Link>Content\Textures\SpriteSheets\PlayerThree.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\SpriteSheets\PlayerTwo.xnb">
+      <Link>Content\Textures\SpriteSheets\PlayerTwo.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\SpriteSheets\Ship.xnb">
+      <Link>Content\Textures\SpriteSheets\Ship.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="TestGameOne_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +207,10 @@
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\Audio\" />
+    <Folder Include="Content\Fonts\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

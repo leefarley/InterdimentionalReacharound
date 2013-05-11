@@ -1,27 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InterdimentionalReacharound.Control;
+﻿using InterdimentionalReacharound.Control;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace InterdimentionalReacharound
 {
-    public enum SpriteState
-    {
-        Standing,
-        Running,
-        Falling,
-        Jumping
-    }
-    public enum Direction
-    {
-        Left,
-        Right
-    }
     public class Player : Actor
     {
         private IControl _control;

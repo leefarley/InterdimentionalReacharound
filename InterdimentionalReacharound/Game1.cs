@@ -39,11 +39,11 @@ namespace InterdimentionalReacharound
         {
             // TODO: Add your initialization logic here
             layers = new List<Layer>();
-            layers.Add(new BackLayer(0.2f, "mainbackground"));
-            layers.Add(new BackLayer(0.3f, "bgLayer1"));
-            layers.Add(new BackLayer(0.4f, "bgLayer2"));
-            layers.Add(new BackgroundLayer("tiles2"));
-            layers.Add(new GroundLayer("tiles2"));
+            layers.Add(new BackLayer(0.2f, @"Textures\Environment\mainbackground"));
+            layers.Add(new BackLayer(0.3f, @"Textures\Environment\bgLayer1"));
+            layers.Add(new BackLayer(0.4f, @"Textures\Environment\bgLayer2"));
+            layers.Add(new BackgroundLayer(@"Textures\Environment\tiles2"));
+            layers.Add(new GroundLayer(@"Textures\Environment\tiles2"));
             
             foreach (Layer layer in layers)
             {
@@ -75,8 +75,8 @@ namespace InterdimentionalReacharound
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            PlayerOne.LoadContent(Content.Load<Texture2D>("malefighter"));
-            PlayerTwo.LoadContent(Content.Load<Texture2D>("malerogue"));
+            PlayerOne.LoadContent(Content.Load<Texture2D>(@"Textures\SpriteSheets\PlayerOne"));
+            PlayerTwo.LoadContent(Content.Load<Texture2D>(@"Textures\SpriteSheets\PlayerTwo"));
             // TODO: use this.Content to load your game content here
         }
 

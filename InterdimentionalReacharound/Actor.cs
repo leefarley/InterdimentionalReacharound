@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace InterdimentionalReacharound
 {
-    public class Actor : GameObject
+    public abstract class Actor : GameObject
     {
         protected Vector2 Velocity;
         protected Rectangle Bounds;
@@ -21,7 +21,7 @@ namespace InterdimentionalReacharound
 
         public SpriteManager spriteManager;
 
-        public Actor(Vector2 position, Rectangle bounds, Layer layer) : base(position)
+        protected Actor(Vector2 position, Rectangle bounds, Layer layer) : base(position)
         {
             spriteManager = new SpriteManager();
             Bounds = bounds;
