@@ -135,6 +135,8 @@
     <Compile Include="Control\Controller.cs" />
     <Compile Include="Control\KeyboardControl.cs" />
     <Compile Include="Direction.cs" />
+    <Compile Include="Enemy.cs" />
+    <Compile Include="EnemyManager.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GroundLayer.cs" />
     <Compile Include="Control\IControl.cs" />

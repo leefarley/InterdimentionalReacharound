@@ -1,6 +1,7 @@
 ﻿
 using System.Linq;
 using InterdimentionalReacharound.Control;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
@@ -18,6 +19,7 @@ namespace InterdimentionalReacharound
 
         
         Player PlayerOne, PlayerTwo;
+        EnemyManager playerOneEnemies, playerTwoEnemies;
         Viewport defaultView, playerOneView, playerTwoView;
         Camera CameraOne, CameraTwo;
         IList<Layer> layers;
@@ -63,6 +65,9 @@ namespace InterdimentionalReacharound
 
             PlayerOne = new Player(Vector2.Zero, new Rectangle(0, 0, 6000, 560), layers.Last(), new Controller(PlayerIndex.One));
             PlayerTwo = new Player(Vector2.Zero, new Rectangle(0, 0, 6000, 560), layers.Last(), new KeyboardControl(PlayerIndex.Two));
+
+            playerOneEnemies = new EnemyManager(layers.Last(), new Rectangle(0, 0, 6000, 560));
+            playerTwoEnemies = new EnemyManager(layers.Last(), new Rectangle(0, 0, 6000, 560));
             
             base.Initialize();
         }
@@ -77,7 +82,11 @@ namespace InterdimentionalReacharound
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             PlayerOne.LoadContent(Content.Load<Texture2D>(@"Textures\SpriteSheets\PlayerOne"));
             PlayerTwo.LoadContent(Content.Load<Texture2D>(@"Textures\SpriteSheets\PlayerTwo"));
-            // TODO: use this.Content to load your game content here
+            playerOneEnemies.LoadContent(Content.Load<Texture2D>(@"Textures\SpriteSheets\Gumba"));
+            playerTwoEnemies.LoadContent(Content.Load<Texture2D>(@"Textures\SpriteSheets\Gumba2"));
+
+            playerOneEnemies.CreateEnemy(Vector2.Zero);
+            playerTwoEnemies.CreateEnemy(new Vector2(200, 0));
         }
 
         /// <summary>
@@ -116,6 +125,8 @@ namespace InterdimentionalReacharound
             }
             PlayerOne.Update(gameTime);
             PlayerTwo.Update(gameTime);
+            playerOneEnemies.Update(gameTime);
+            playerTwoEnemies.Update(gameTime);
             CameraOne.Update(PlayerOne.Position, playerOneView);
             CameraTwo.Update(PlayerTwo.Position, playerTwoView);
             base.Update(gameTime);
@@ -130,19 +141,20 @@ namespace InterdimentionalReacharound
             GraphicsDevice.Clear(Color.Black);
 
             GraphicsDevice.Viewport = playerOneView;
-            DrawScene(PlayerOne, CameraOne, gameTime);
+            DrawScene(PlayerOne, CameraOne, gameTime, playerOneEnemies);
 
             GraphicsDevice.Viewport = playerTwoView;
-            DrawScene(PlayerTwo, CameraTwo, gameTime);
+            DrawScene(PlayerTwo, CameraTwo, gameTime, playerTwoEnemies);
 
             
             _spriteBatch.Begin();
+            // draw stuff over both viewports
             _spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
-        private void DrawScene(Player player, Camera camera, GameTime gameTime)
+        private void DrawScene(Player player, Camera camera, GameTime gameTime, EnemyManager enemyManager)
         {
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
@@ -151,6 +163,7 @@ namespace InterdimentionalReacharound
 		        layer.Draw(_spriteBatch, camera);
 	        }
             player.Draw(_spriteBatch, camera);
+            enemyManager.Draw(_spriteBatch);
             
             _spriteBatch.End();
         }

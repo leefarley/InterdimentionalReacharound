@@ -1,27 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace InterdimentionalReacharound
 {
-    public class Gumba : Actor
+    public class Gumba : Enemy
     {
         public Gumba(Vector2 position, Rectangle bounds, Layer layer) : base(position, bounds, layer)
         {
             
         }
 
-        public void LoadContent()
+        public override void Update(GameTime gameTime)
         {
-            
+            spriteManager.Update(gameTime, SpriteState.Standing);
         }
 
-        public void Update()
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            
-        }
-
-        public void Draw()
-        {
-            
+            spriteManager.Draw(spriteBatch, Position);
         }
     }
 }
