@@ -50,12 +50,22 @@ namespace InterdimentionalReacharound
 
         public Point LeftFoot(Vector2 position)
         {
-            return new Point((int)(position.X + 5), (int)(position.Y + spriteSize.Y));
+            return new Point((int)(position.X + 9), (int)(position.Y + spriteSize.Y));
         }
 
         public Point RightFoot(Vector2 position)
         {
-            return new Point((int)position.X + (spriteSize.X - 5), (int)(position.Y + spriteSize.Y));
+            return new Point((int)position.X + (spriteSize.X - 9), (int)(position.Y + spriteSize.Y));
+        }
+
+        public Point LeftSide(Vector2 position)
+        {
+            return new Point((int)(position.X + 8), (int)position.Y + (spriteSize.Y / 2));
+        }
+
+        public Point RightSide(Vector2 position)
+        {
+            return new Point((int)(position.X + (spriteSize.X - 8)), (int)position.Y + (spriteSize.Y / 2));
         }
     }
 }

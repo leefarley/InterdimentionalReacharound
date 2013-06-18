@@ -24,13 +24,12 @@ namespace InterdimentionalReacharound
 
             if (IsJumping == false && _control.IsJumpPressed())
             {
-                newVelocity.Y = -5;
+                newVelocity.Y = -4;
                 IsJumping = true;
                 newState = SpriteState.Jumping;
             }
 
             var newPosition = Position + (newVelocity * Speed);
-            newPosition = CalculateBounds(newPosition);
 
             switch (newState)
             {
@@ -54,16 +53,39 @@ namespace InterdimentionalReacharound
                             newState = SpriteState.Falling;
                             newVelocity.Y = 1;
                         }
+
+                        if (newVelocity.X > 0 && IsRightWallSolid(newPosition))
+                        {
+                            newPosition.X -= newPosition.X % 16;
+                            newVelocity.X = 0;
+                        }
+                        else if (newVelocity.X < 0 && IsLeftWallSolid(newPosition))
+                        {
+                            newPosition.X += (16 - newPosition.X % 16);
+                            newVelocity.X = 0;
+                        }
                         break;
                     }
                 case SpriteState.Falling:
                     {
+                        if (newVelocity.X > 0 && IsRightWallSolid(newPosition))
+                        {
+                            newPosition.X -= newPosition.X % 16;
+                            newVelocity.X = 0;
+                        }
+                        else if (newVelocity.X < 0 && IsLeftWallSolid(newPosition))
+                        {
+                            newPosition.X += (16 - newPosition.X % 16);
+                            newVelocity.X = 0;
+                        }
+
                         if (IsGroundSolid(newPosition))
                         {
                             newVelocity.Y = 0;
+                            newPosition.Y -= newPosition.Y  % 16;
                             newState = SpriteState.Standing;
                         }
-                        else if (newVelocity.Y < 10)
+                        else if (newVelocity.Y < 5)
                         {
                             newVelocity.Y += 0.5f;
                         }
@@ -75,11 +97,23 @@ namespace InterdimentionalReacharound
                         {
                             newVelocity.Y = 0;
                             newState = SpriteState.Standing;
+                            newPosition.Y -= newPosition.Y  % 16;
                             IsJumping = false;
                         }
                         else if (newVelocity.Y < 10)
                         {
                             newVelocity.Y += 0.5f;
+                        }
+
+                        if (newVelocity.X > 0 && IsRightWallSolid(newPosition))
+                        {
+                            newPosition.X -= newPosition.X % 16;
+                            newVelocity.X = 0;
+                        }
+                        else if (newVelocity.X < 0 && IsLeftWallSolid(newPosition))
+                        {
+                            newPosition.X += (16 - newPosition.X % 16);
+                            newVelocity.X = 0;
                         }
                         break;
                     }
@@ -90,7 +124,6 @@ namespace InterdimentionalReacharound
             else if (newVelocity.X < 0)
                 spriteManager.ChangeSpriteDirection(Direction.Left);
 
-            newPosition = Position + (newVelocity * Speed);
             newPosition = CalculateBounds(newPosition);
 
             spriteState = newState;
@@ -101,9 +134,9 @@ namespace InterdimentionalReacharound
             
         }
 
-        public void Draw(SpriteBatch spriteBatch, Camera camera)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 offset)
         {
-            Vector2 newPosition = new Vector2(Position.X - camera.Position.X, Position.Y - camera.Position.Y);
+            Vector2 newPosition = Position - offset;
             spriteManager.Draw(spriteBatch, newPosition);
         }
     }

@@ -24,7 +24,12 @@ namespace InterdimentionalReacharound
                     if (y > 20)
                         Map[x, y] = 1;
                     else
-                        Map[x, y] = 0;
+                    {
+                        if (y > 18 && x > 10 && x < 15)
+                            Map[x, y] = 1;
+                        else
+                            Map[x, y] = 0;
+                    }
                 }
             }
         }

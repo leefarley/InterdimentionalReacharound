@@ -137,10 +137,13 @@
     <Compile Include="Direction.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />
+    <Compile Include="GameControl.cs" />
+    <Compile Include="GameItem.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GroundLayer.cs" />
     <Compile Include="Control\IControl.cs" />
     <Compile Include="Gumba.cs" />
+    <Compile Include="ItemManager.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
@@ -199,6 +202,66 @@
     </Content>
     <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Textures\SpriteSheets\Ship.xnb">
       <Link>Content\Textures\SpriteSheets\Ship.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerBack.xnb">
+      <Link>Content\Buttons\xboxControllerBack.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerButtonA.xnb">
+      <Link>Content\Buttons\xboxControllerButtonA.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerButtonB.xnb">
+      <Link>Content\Buttons\xboxControllerButtonB.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerButtonGuide.xnb">
+      <Link>Content\Buttons\xboxControllerButtonGuide.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerButtonX.xnb">
+      <Link>Content\Buttons\xboxControllerButtonX.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerButtonY.xnb">
+      <Link>Content\Buttons\xboxControllerButtonY.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerDPad.xnb">
+      <Link>Content\Buttons\xboxControllerDPad.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerLeftShoulder.xnb">
+      <Link>Content\Buttons\xboxControllerLeftShoulder.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerLeftThumbstick.xnb">
+      <Link>Content\Buttons\xboxControllerLeftThumbstick.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerLeftTrigger.xnb">
+      <Link>Content\Buttons\xboxControllerLeftTrigger.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerRightShoulder.xnb">
+      <Link>Content\Buttons\xboxControllerRightShoulder.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerRightThumbstick.xnb">
+      <Link>Content\Buttons\xboxControllerRightThumbstick.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerRightTrigger.xnb">
+      <Link>Content\Buttons\xboxControllerRightTrigger.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerSpriteFont.xnb">
+      <Link>Content\Buttons\xboxControllerSpriteFont.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuilder\ContentBuilder\ContentBuilder\bin\Windows Phone\Debug\Content\Buttons\xboxControllerStart.xnb">
+      <Link>Content\Buttons\xboxControllerStart.xnb</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="TestGameOne_TemporaryKey.pfx" />

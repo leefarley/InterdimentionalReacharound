@@ -15,7 +15,7 @@ namespace InterdimentionalReacharound
 
         public SpriteManager spriteManager;
 
-        protected Actor(Vector2 position, Rectangle bounds, Layer layer) : base(position)
+        protected Actor(Vector2 position, Rectangle bounds, Layer layer) : base(position, new Point(32,32))
         {
             spriteManager = new SpriteManager();
             Bounds = bounds;
@@ -32,9 +32,10 @@ namespace InterdimentionalReacharound
             base.LoadContent(texture);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 offset)
         {
-            spriteManager.Draw(spriteBatch, Position);
+            var newPosition = Position - offset;
+            spriteManager.Draw(spriteBatch, newPosition);
         }
 
         protected Vector2 CalculateBounds(Vector2 newPosition)
@@ -59,7 +60,23 @@ namespace InterdimentionalReacharound
             Point worldLeftFoot = spriteManager.LeftFoot(newPosition);
             Point worldRightFoot = spriteManager.RightFoot(newPosition);
 
-            if (groundLayer.IsLocationSolid(worldLeftFoot) && groundLayer.IsLocationSolid(worldRightFoot))
+            if (groundLayer.IsLocationSolid(worldLeftFoot) || groundLayer.IsLocationSolid(worldRightFoot))
+                return true;
+            return false;
+        }
+
+        protected bool IsLeftWallSolid(Vector2 newPosition)
+        {
+            Point worldLeftSide = spriteManager.LeftSide(newPosition);
+            if (groundLayer.IsLocationSolid(worldLeftSide))
+                return true;
+            return false;
+        }
+
+        protected bool IsRightWallSolid(Vector2 newPosition)
+        {
+            Point worldRightSide = spriteManager.RightSide(newPosition);
+            if (groundLayer.IsLocationSolid(worldRightSide))
                 return true;
             return false;
         }

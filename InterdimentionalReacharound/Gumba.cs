@@ -40,6 +40,7 @@ namespace InterdimentionalReacharound
                         {
                             newVelocity.Y = 0;
                             newVelocity.X = 1;
+                            newPosition.Y -= newPosition.Y % 16;
                             newState = SpriteState.Running;
                         }
                         else if (newVelocity.Y < 5)
@@ -50,7 +51,6 @@ namespace InterdimentionalReacharound
                     }
             }
 
-            newPosition = Position + (newVelocity * Speed);
             newPosition = CalculateBounds(newPosition);
 
             if (newVelocity.X > 0)
@@ -72,12 +72,6 @@ namespace InterdimentionalReacharound
             if ((newPosition.X + 32) > Bounds.Right)
                 return true;
             return false;
-        }
-
-        public void Draw(SpriteBatch spriteBatch, Vector2 offset)
-        {
-            var newPosition = Position - offset;
-            spriteManager.Draw(spriteBatch, newPosition);
         }
 
     }

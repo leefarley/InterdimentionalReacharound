@@ -20,6 +20,8 @@ namespace InterdimentionalReacharound
         
         Player PlayerOne, PlayerTwo;
         EnemyManager playerOneEnemies, playerTwoEnemies;
+        ItemManager itemManagerOne, itemManagerTwo;
+        CollisionManager collisionManagerOne, collisionManagerTwo;
         Viewport defaultView, playerOneView, playerTwoView;
         Camera CameraOne, CameraTwo;
         IList<Layer> layers;
@@ -72,6 +74,12 @@ namespace InterdimentionalReacharound
 
             playerOneEnemies = new EnemyManager(layers.Last(), new Rectangle(0, 0, 6000, 560));
             playerTwoEnemies = new EnemyManager(layers.Last(), new Rectangle(0, 0, 6000, 560));
+
+            itemManagerOne = new ItemManager();
+            itemManagerTwo = new ItemManager();
+
+            collisionManagerOne = new CollisionManager(PlayerOne, itemManagerOne, playerOneEnemies);
+            collisionManagerTwo = new CollisionManager(PlayerTwo, itemManagerTwo, playerTwoEnemies);
             
             base.Initialize();
         }
@@ -88,9 +96,14 @@ namespace InterdimentionalReacharound
             PlayerTwo.LoadContent(Content.Load<Texture2D>(@"Textures\SpriteSheets\PlayerTwo"));
             playerOneEnemies.LoadContent(Content.Load<Texture2D>(@"Textures\SpriteSheets\Gumba"));
             playerTwoEnemies.LoadContent(Content.Load<Texture2D>(@"Textures\SpriteSheets\Gumba2"));
+            itemManagerOne.LoadContent(Content);
+            itemManagerTwo.LoadContent(Content);
 
             playerOneEnemies.CreateEnemy(Vector2.Zero);
             playerTwoEnemies.CreateEnemy(new Vector2(200, 0));
+
+            itemManagerOne.AddItem(new Vector2(400, 270), new Point(44, 44));
+            itemManagerTwo.AddItem(new Vector2(400, 270), new Point(44, 44));
         }
 
         /// <summary>
@@ -137,6 +150,10 @@ namespace InterdimentionalReacharound
                 playerTwoEnemies.Update(gameTime);
                 CameraOne.Update(PlayerOne.Position, playerOneView);
                 CameraTwo.Update(PlayerTwo.Position, playerTwoView);
+
+                collisionManagerOne.Update(gameTime);
+                collisionManagerTwo.Update(gameTime);
+                
                 base.Update(gameTime);
             //}
         }
@@ -150,10 +167,10 @@ namespace InterdimentionalReacharound
             GraphicsDevice.Clear(Color.Black);
 
             GraphicsDevice.Viewport = playerOneView;
-            DrawScene(PlayerOne, CameraOne, gameTime, playerOneEnemies);
+            DrawScene(PlayerOne, CameraOne, gameTime, playerOneEnemies, itemManagerOne);
 
             GraphicsDevice.Viewport = playerTwoView;
-            DrawScene(PlayerTwo, CameraTwo, gameTime, playerTwoEnemies);
+            DrawScene(PlayerTwo, CameraTwo, gameTime, playerTwoEnemies, itemManagerTwo);
 
             
             _spriteBatch.Begin();
@@ -163,7 +180,7 @@ namespace InterdimentionalReacharound
             base.Draw(gameTime);
         }
 
-        private void DrawScene(Player player, Camera camera, GameTime gameTime, EnemyManager enemyManager)
+        private void DrawScene(Player player, Camera camera, GameTime gameTime, EnemyManager enemyManager, ItemManager itemManager)
         {
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
@@ -172,10 +189,39 @@ namespace InterdimentionalReacharound
 		        layer.Draw(_spriteBatch, camera);
 	        }
 
-            player.Draw(_spriteBatch, camera);
+            itemManager.Draw(_spriteBatch, camera);
             enemyManager.Draw(_spriteBatch, camera);
+            player.Draw(_spriteBatch, camera.Position);
 
             _spriteBatch.End();
+        }
+    }
+
+    public class CollisionManager : GameControl
+    {
+        private Player _player;
+        private ItemManager _items;
+        private EnemyManager _enemies;
+
+        public CollisionManager(Player player, ItemManager items, EnemyManager enemies)
+        {
+            _player = player;
+            _items = items;
+            _enemies = enemies;
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            Rectangle playerBox = _player.BoundingBox;
+            _items.CheckItemCollisions(playerBox);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, Camera camera)
+        {
         }
     }
 }

@@ -12,23 +12,26 @@ namespace InterdimentionalReacharound
     {
         public Vector2 Position{get; set;}
         protected Texture2D Texture;
+        protected Point Size;
 
-        public GameObject(Vector2 position)
+        public GameObject(Vector2 position, Point size)
         {
             Position = position;
+            Size = size;
+        }
+        public GameObject(Vector2 position, Point size, Texture2D texture)
+        {
+            Position = position;
+            Size = size;
+            Texture = texture;
         }
 
         public virtual void LoadContent(Texture2D texture)
         {
             Texture = texture;
         }
-
-        public virtual void Update(GameTime gameTime)
-        {
-
-        }
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-        }
+        public virtual Rectangle BoundingBox { get { return new Rectangle((int)Position.X, (int)Position.Y, Size.X, Size.Y); } }
+        public abstract void Update(GameTime gameTime);
+        public abstract void Draw(SpriteBatch spriteBatch, Vector2 offset);
     }
 }
